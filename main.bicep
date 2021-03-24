@@ -1,23 +1,16 @@
-resource stg 'Microsoft.Storage/storageAccounts@2019-06-01' = {
-  name: 'cdwgitops20210311'
+targetScope = 'subscription'
+
+resource myRg 'Microsoft.Resources/resourceGroups@2020-01-01' = {
+  name: 'cdw-azgitops-20210324'
   location: 'westus2'
-  kind: 'StorageV2'
-  sku: {
-    name: 'Standard_LRS'
-  }
-  properties: {
-    supportsHttpsTrafficOnly: true
-  }
+  scope: subscription()
 }
 
-resource stg2 'Microsoft.Storage/storageAccounts@2019-06-01' = {
-  name: 'cdwgitops20210314'
-  location: 'westus2'
-  kind: 'StorageV2'
-  sku: {
-    name: 'Standard_LRS'
-  }
-  properties: {
-    supportsHttpsTrafficOnly: true
+module stgModule './storage.bicep' = {
+  name: 'storageDeploy'
+  scope: myRg
+  params: {
+    name: 'cdwazgitops20210324'
+    location: myRg.location
   }
 }
