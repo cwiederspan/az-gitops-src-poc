@@ -1,9 +1,8 @@
 targetScope = 'subscription'
 
-resource myRg 'Microsoft.Resources/resourceGroups@2020-01-01' = {
+resource myRg 'Microsoft.Resources/resourceGroups@2020-06-01' = {
   name: 'cdw-azgitops-20210324'
   location: 'westus2'
-  scope: subscription()
 }
 
 module stgModule './storage.bicep' = {
